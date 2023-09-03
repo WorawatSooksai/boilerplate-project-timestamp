@@ -1,6 +1,6 @@
 // index.js
 // where your node app starts
-
+require('dotenv').config();
 // init project
 var express = require('express');
 var app = express();
@@ -20,8 +20,20 @@ app.get("/", function (req, res) {
 
 
 // your first API endpoint... 
-app.get("/api/hello", function (req, res) {
-  res.json({greeting: 'hello API'});
+// app.get("/api/hello", function (req, res) {
+//   res.json({greeting: 'hello API'});
+// });
+
+app.get("/api/:ptime",function (req, res) {
+
+  
+  
+  const t2 = new Date(req.params.ptime).toUTCString();
+  const t1 = (new Date(req.params.ptime).getTime());
+  if(!t1){
+    res.json({unix: req.params.ptime,utc: new Date(parseInt(req.params.ptime)).toUTCString()});
+  }else
+  res.json({unix: t1,utc: t2});
 });
 
 
